@@ -127,7 +127,7 @@ const MainLayout = () => {
           <div className='d-flex gap-3 align-items-center'>
             <div></div>
             <div className='d-flex gap-3 align-items-center'>
-              <MdOutlineAccountCircle size={42}/>
+              <MdOutlineAccountCircle size={42} />
               <div className='d-flex flex-column'>
                 <h5 className='fs-5 m-0'>Admin</h5>
                 <p className='m-0 lh-sm'>admin@email.com</p>
