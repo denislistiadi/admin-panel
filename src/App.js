@@ -3,7 +3,6 @@ import './App.css'
 import MainLayout from './components/Layout/MainLayout'
 import Dashboard from './pages/Dashboard'
 import ForgotPassword from './pages/ForgotPassword'
-// import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import ResetPassword from './pages/ResetPassword'
 
@@ -18,6 +17,6 @@ function App() {
       </Route>
     </Routes>
   )
-}
+} 
 
 export default App
