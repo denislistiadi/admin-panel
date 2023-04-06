@@ -30,6 +30,7 @@ for (let i = 0; i < 26; i++) {
     staus: `London, Park Lane no. ${i}`,
   })
 }
+
 const Dashboard = () => {
   const data = [
     {
