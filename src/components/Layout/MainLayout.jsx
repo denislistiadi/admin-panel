@@ -56,6 +56,11 @@ const MainLayout = () => {
               label: 'Customers',
             },
             {
+              key: 'orders',
+              icon: <IoBasketOutline className='fs-4' />,
+              label: 'Orders List',
+            },
+            {
               key: 'product',
               icon: <AiOutlineAppstore className='fs-4' />,
               label: 'Product Management',
@@ -81,11 +86,6 @@ const MainLayout = () => {
                   label: 'Color',
                 },
               ],
-            },
-            {
-              key: 'orders',
-              icon: <IoBasketOutline className='fs-4' />,
-              label: 'Orders',
             },
             {
               key: 'blogs',
