@@ -2,6 +2,10 @@ body {
   font-family: Roboto, sans-serif;
 }
 
+main {
+  background-color: transparent !important;
+}
+
 .trigger {
   padding: 0 24px;
   font-size: 18px;
@@ -37,4 +41,9 @@ body {
 
 .ant-layout {
   min-height: 100vh;
+}
+
+.badge {
+  top:16px;
+  right: -6px;
 }

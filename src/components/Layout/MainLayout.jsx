@@ -9,7 +9,7 @@ import {
   AiOutlineHdd,
   AiOutlineBgColors,
 } from 'react-icons/ai'
-import { IoBasketOutline } from 'react-icons/io5'
+import { IoBasketOutline, IoNotifications } from 'react-icons/io5'
 import { HiOutlineNewspaper } from 'react-icons/hi2'
 import { HiOutlineClipboardList } from 'react-icons/hi'
 import { MdOutlineArticle, MdWrapText, MdOutlineAccountCircle } from 'react-icons/md'
@@ -124,12 +124,15 @@ const MainLayout = () => {
             className: 'trigger',
             onClick: () => setCollapsed(!collapsed),
           })}
-          <div className='d-flex gap-3 align-items-center'>
-            <div></div>
+          <div className='d-flex gap-4 align-items-center'>
+            <div className='position-relative'>
+              <IoNotifications className='fs-4' />
+              <span className='badge bg-warning rounded-circle p-1 position-absolute'>3</span>
+            </div>
             <div className='d-flex gap-3 align-items-center'>
-              <MdOutlineAccountCircle size={42}/>
+              <MdOutlineAccountCircle size={42} />
               <div className='d-flex flex-column'>
-                <h5 className='fs-5 m-0'>Admin</h5>
+                <h5 className='fs-5 m-0 '>Admin</h5>
                 <p className='m-0 lh-sm'>admin@email.com</p>
               </div>
             </div>
@@ -137,7 +140,7 @@ const MainLayout = () => {
         </Header>
         <Content
           style={{
-            margin: '24px 16px',
+            margin: '16px',
             padding: 24,
             minHeight: 280,
             background: colorBgContainer,
