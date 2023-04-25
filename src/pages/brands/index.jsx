@@ -1,5 +1,6 @@
 import { Table } from 'antd'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const BrandList = () => {
   const columns = [
@@ -32,7 +33,12 @@ const BrandList = () => {
 
   return (
     <div>
-      <h3 className='mb-4'>Brands</h3>
+      <div className='d-flex justify-content-between mb-4'>
+        <h3 className=''>Brands</h3>
+        <Link to='/admin/add-brand'>
+          <button className='btn btn-success border-0 rounded-3 '>Add Brand</button>
+        </Link>
+      </div>
       <div className=''>
         <Table columns={columns} dataSource={data1} />
       </div>

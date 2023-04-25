@@ -1,5 +1,6 @@
 import { Table } from 'antd'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const ColorList = () => {
   const columns = [
@@ -32,7 +33,12 @@ const ColorList = () => {
 
   return (
     <div>
-      <h3 className='mb-4'>Colors</h3>
+      <div className='d-flex justify-content-between mb-4'>
+        <h3 className=''>Color</h3>
+        <Link to='/admin/add-color'>
+          <button className='btn btn-success border-0 rounded-3 '>Add Color</button>
+        </Link>
+      </div>
       <div className=''>
         <Table columns={columns} dataSource={data1} />
       </div>

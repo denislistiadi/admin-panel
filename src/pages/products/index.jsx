@@ -1,5 +1,6 @@
 import { Table } from 'antd'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const ProductList = () => {
   const columns = [
@@ -31,12 +32,17 @@ const ProductList = () => {
   }
 
   return (
-    <div>
-      <h3 className='mb-4'>Product List</h3>
+    <React.Fragment>
+      <div className='d-flex justify-content-between mb-4'>
+        <h3 className=''>Product List</h3>
+        <Link to='/admin/add-product'>
+          <button className='btn btn-success border-0 rounded-3 '>Add Product</button>
+        </Link>
+      </div>
       <div className=''>
         <Table columns={columns} dataSource={data1} />
       </div>
-    </div>
+    </React.Fragment>
   )
 }
 
