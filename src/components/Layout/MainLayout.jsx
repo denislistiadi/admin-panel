@@ -1,5 +1,5 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import {
   AiOutlineDashboard,
   AiOutlineUser,
@@ -129,13 +129,39 @@ const MainLayout = () => {
               <IoNotifications className='fs-4' />
               <span className='badge bg-warning rounded-circle p-1 position-absolute'>3</span>
             </div>
-            <div className='d-flex gap-3 align-items-center'>
+            <div
+              className='d-flex gap-3 align-items-center'
+              role='button'
+              id='dropdownMenuLink'
+              data-bs-toggle='dropdown'
+              aria-expanded='false'
+            >
               <MdOutlineAccountCircle size={42} />
               <div className='d-flex flex-column'>
                 <h5 className='fs-5 m-0 '>Admin</h5>
                 <p className='m-0 lh-sm'>admin@email.com</p>
               </div>
             </div>
+            <ul className='dropdown-menu' aria-labelledby='dropdownMenuLink'>
+              <li>
+                <Link
+                  className='dropdown-item'
+                  style={{ lineHeight: '24px', height: 'auto' }}
+                  to='/'
+                >
+                  View Profile
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className='dropdown-item'
+                  style={{ lineHeight: '24px', height: 'auto' }}
+                  to='/'
+                >
+                  Logout
+                </Link>
+              </li>
+            </ul>
           </div>
         </Header>
         <Content
