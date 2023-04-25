@@ -35,7 +35,7 @@ const Categories = () => {
     <div>
       <div className='d-flex justify-content-between mb-4'>
         <h3 className=''>Product Category</h3>
-        <Link to='/admin/add-product-category'>
+        <Link to='/admin/add-category'>
           <button className='btn btn-success border-0 rounded-3 '>Add Product Category</button>
         </Link>
       </div>
