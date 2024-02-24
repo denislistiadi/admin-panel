@@ -1,5 +1,5 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Navigate, Outlet } from 'react-router-dom'
 import {
   AiOutlineDashboard,
   AiOutlineUser,
@@ -14,8 +14,11 @@ import { HiOutlineNewspaper } from 'react-icons/hi2'
 import { HiOutlineClipboardList } from 'react-icons/hi'
 import { MdOutlineArticle, MdWrapText, MdOutlineAccountCircle } from 'react-icons/md'
 import { Layout, Menu, theme } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { logoutApi } from '../../services/AuthService'
+import { initialUser, setLogged, setUser } from '../../app/auth'
 const { Header, Sider, Content } = Layout
 
 const MainLayout = () => {
@@ -24,6 +27,22 @@ const MainLayout = () => {
     token: { colorBgContainer },
   } = theme.useToken()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const data = useSelector((state) => state.auth)
+
+  const onLogout = async () => {
+    try {
+      await logoutApi()
+      dispatch(setLogged({ logged: false, token: '' }))
+      dispatch(setUser(initialUser))
+    } catch (error) {
+      console.log(error.response.data.message)
+    }
+  }
+
+  if (!data.logged) {
+    return <Navigate to='/' />
+  }
 
   return (
     <Layout>
@@ -156,7 +175,8 @@ const MainLayout = () => {
                 <Link
                   className='dropdown-item'
                   style={{ lineHeight: '24px', height: 'auto' }}
-                  to='/'
+                  to=''
+                  onClick={onLogout}
                 >
                   Logout
                 </Link>
