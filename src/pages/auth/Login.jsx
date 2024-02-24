@@ -5,6 +5,7 @@ import { Field, Form, Formik } from 'formik'
 import { LoginApi } from '../../services/AuthService'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLogged, setUser } from '../../app/auth'
+import { Button } from 'antd'
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -26,13 +27,16 @@ const Login = () => {
     }
   }
 
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => setError(''), 2000)
+    }
+  }, [error])
+
   if (data.logged) {
     return <Navigate to='/admin' />
   }
 
-  useEffect(() => {
-    setTimeout(() => setError(''), 2000)
-  }, [error])
   return (
     <div className='py-5 my-auto' style={{ background: '#ffd333', minHeight: '100vh' }}>
       <div className='my-5 w-25 bg-white rounded-3 mx-auto p-4'>
@@ -71,14 +75,16 @@ const Login = () => {
                   {error}
                 </p>
               )}
-              <button
-                className='border-0 px-3 py-2 text-white fw-bold w-100'
+              <Button
+                className=' text-white fw-bold w-100'
                 style={{ background: '#ffd333' }}
-                type='submit'
+                type='primary'
+                htmlType='submit'
+                size='large'
                 loading={isSubmitting}
               >
                 Login
-              </button>
+              </Button>
             </Form>
           )}
         </Formik>
