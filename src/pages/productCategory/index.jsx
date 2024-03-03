@@ -78,7 +78,7 @@ const Categories = () => {
         </button>
       </div>
       <div className=''>
-        <Table columns={columns} loading={loading} dataSource={data} />
+        <Table columns={columns} loading={loading} dataSource={data} rowKey='_id' />
       </div>
     </div>
   )

@@ -1,46 +1,83 @@
-import { Table } from 'antd'
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { Button, Modal, Space, Table } from 'antd'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { getBrandApi, setFormBrand } from '../../app/brand'
+import { deleteBrandProduct } from '../../services/ProductService'
 
 const BrandList = () => {
+  const { confirm } = Modal
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { loading, data } = useSelector((state) => state.brand.list)
+
+  const onAdd = () => {
+    dispatch(setFormBrand({ isEdit: false, data: { title: '' } }))
+    navigate('/admin/add-brand')
+  }
+
+  const onEdit = (data) => {
+    dispatch(setFormBrand({ isEdit: true, data: data }))
+    navigate('/admin/add-brand')
+  }
+  const showDeleteConfirm = (id) => {
+    confirm({
+      title: 'Are you sure?',
+      content: 'If a brand is deleted it cannot be returned',
+      okText: 'Delete',
+      okType: 'danger',
+      cancelText: 'Cancel',
+      async onOk() {
+        await deleteBrandProduct(id)
+        dispatch(getBrandApi())
+      },
+      onCancel() {
+        console.log('Cancel')
+      },
+    })
+  }
+
   const columns = [
     {
-      title: 'SNo',
-      dataIndex: 'key',
+      title: 'Brand ID',
+      dataIndex: '_id',
     },
     {
       title: 'Name',
-      dataIndex: 'name',
+      dataIndex: 'title',
     },
     {
-      title: 'Product',
-      dataIndex: 'product',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'staus',
+      title: 'Action',
+      key: 'action',
+      render: (props) => {
+        return (
+          <Space size='middle'>
+            <Button type='primary' onClick={() => onEdit(props)}>
+              Edit
+            </Button>
+            <Button type='primary' onClick={() => showDeleteConfirm(props._id)} danger>
+              Delete
+            </Button>
+          </Space>
+        )
+      },
     },
   ]
-  const data1 = []
-  for (let i = 0; i < 20; i++) {
-    data1.push({
-      key: i,
-      name: `Edward King ${i}`,
-      product: 32,
-      staus: `London, Park Lane no. ${i}`,
-    })
-  }
+
+  useEffect(() => {
+    dispatch(getBrandApi())
+  }, [])
 
   return (
     <div>
       <div className='d-flex justify-content-between mb-4'>
         <h3 className=''>Brands</h3>
-        <Link to='/admin/add-brand'>
-          <button className='btn btn-success border-0 rounded-3 '>Add Brand</button>
-        </Link>
+        <button className='btn btn-success border-0 rounded-3' onClick={onAdd}>
+          Add Brand
+        </button>
       </div>
       <div className=''>
-        <Table columns={columns} dataSource={data1} />
+        <Table columns={columns} dataSource={data} loading={loading} rowKey='_id' />
       </div>
     </div>
   )

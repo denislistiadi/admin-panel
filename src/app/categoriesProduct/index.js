@@ -20,15 +20,12 @@ export const categoriesProductSlice = createSlice({
   initialState: {
     list: initialdata,
     form: initialForm,
-    isEdit: false
+    isEdit: false,
   },
   reducers: {
     setFormCategoriesProduct: (state, action) => {
       state.form = action.payload.data
       state.isEdit = action.payload.isEdit
-    },
-    setUser: (state, action) => {
-      state.user = action.payload
     },
   },
   extraReducers: (builder) => {
@@ -48,6 +45,6 @@ export const categoriesProductSlice = createSlice({
   },
 })
 
-export const { setFormCategoriesProduct, setUser } = categoriesProductSlice.actions
+export const { setFormCategoriesProduct } = categoriesProductSlice.actions
 
 export default categoriesProductSlice.reducer
