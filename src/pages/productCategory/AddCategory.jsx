@@ -5,9 +5,11 @@ import { Field, Form, Formik } from 'formik'
 import { Button } from 'antd'
 import { createCategoryProduct, updateCategoryProduct } from '../../services/ProductService'
 import { useNavigate } from 'react-router-dom'
+import ErrorModal from '../../components/Modal/ErrorModal'
 
 const AddCategory = () => {
   const navigate = useNavigate()
+  const { showModal } = ErrorModal()
   const data = useSelector((state) => state.categoriesProduct)
 
   const onSubmit = async (values, setSubmitting) => {
@@ -18,6 +20,7 @@ const AddCategory = () => {
       navigate('/admin/category')
     } catch (error) {
       console.log(error)
+      showModal(error.response.data.message)
     } finally {
       setSubmitting(false)
     }
