@@ -10,7 +10,7 @@ import ErrorModal from '../../components/Modal/ErrorModal'
 
 const AddBlogCategory = () => {
   const navigate = useNavigate()
-  const {showModal} = ErrorModal()
+  const { showModal } = ErrorModal()
   const data = useSelector((state) => state.categoriesBlog)
 
   const onSubmit = async (values, setSubmitting) => {
@@ -29,7 +29,7 @@ const AddBlogCategory = () => {
 
   return (
     <React.Fragment>
-      <h3 className='mb-4'>Add Blog Category</h3>
+      <h3 className='mb-4'>{data.isEdit ? 'Edit Blog Category' : 'Add Blog Category'}</h3>
       <div className=''>
         <Formik
           initialValues={data.form}

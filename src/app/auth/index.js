@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { getCustomersApi } from '../../services/AuthService'
 
 export const initialUser = {
   foto: '',
@@ -7,9 +8,15 @@ export const initialUser = {
   telepon: '',
 }
 
+export const getCustomers = createAsyncThunk('getCustomers', async () => {
+  const resp = await getCustomersApi()
+  return resp.data
+})
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState: {
+    customers: { list: [], loading: false },
     logged: false,
     token: '',
     user: initialUser,
@@ -22,6 +29,14 @@ export const authSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getCustomers.pending, (state) => {
+      state.customers.loading = true
+    }).addCase(getCustomers.fulfilled, (state, action) => {
+      state.customers.loading = false
+      state.customers.list = action.payload.getUsers
+    })
   },
 })
 

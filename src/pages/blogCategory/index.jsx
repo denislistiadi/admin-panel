@@ -1,4 +1,4 @@
-import { Button, Space, Table } from 'antd'
+import { Button, Modal, Space, Table } from 'antd'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
@@ -7,6 +7,7 @@ import { getCategoriesBlogApi, setFormCategoriesBlog } from '../../app/categorie
 import { deleteCategoryBlog } from '../../services/BlogService'
 
 const BlogCategory = () => {
+  const { confirm } = Modal
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { loading, data } = useSelector((state) => state.categoriesBlog.list)
@@ -19,7 +20,7 @@ const BlogCategory = () => {
   const showDeleteConfirm = (id) => {
     confirm({
       title: 'Are you sure?',
-      content: 'If a product category is deleted it cannot be returned',
+      content: 'If a blog category is deleted it cannot be returned',
       okText: 'Delete',
       okType: 'danger',
       cancelText: 'Cancel',
