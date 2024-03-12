@@ -31,12 +31,14 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getCustomers.pending, (state) => {
-      state.customers.loading = true
-    }).addCase(getCustomers.fulfilled, (state, action) => {
-      state.customers.loading = false
-      state.customers.list = action.payload.getUsers
-    })
+    builder
+      .addCase(getCustomers.pending, (state) => {
+        state.customers.loading = true
+      })
+      .addCase(getCustomers.fulfilled, (state, action) => {
+        state.customers.loading = false
+        state.customers.list = action.payload.getUsers
+      })
   },
 })
 
