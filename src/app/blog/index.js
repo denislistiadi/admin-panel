@@ -8,6 +8,8 @@ const initialdata = {
 
 const initialForm = {
   title: '',
+  category: '',
+  desc: '',
 }
 
 export const fetchBlogApi = createAsyncThunk('getBlog', async (param) => {

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchBlogApi } from '../../app/blog'
+import { getCategoriesBlogApi } from '../../app/categoriesBlog'
 
 const BlogList = () => {
   const dispatch = useDispatch()
@@ -30,6 +31,7 @@ const BlogList = () => {
 
   useEffect(() => {
     dispatch(fetchBlogApi())
+    dispatch(getCategoriesBlogApi())
   }, [])
 
   return (
