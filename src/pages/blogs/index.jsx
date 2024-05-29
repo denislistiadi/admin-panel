@@ -1,35 +1,36 @@
 import { Table } from 'antd'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { fetchBlogApi } from '../../app/blog'
 
 const BlogList = () => {
+  const dispatch = useDispatch()
+  const { loading, data } = useSelector((state) => state.blog.list)
+
   const columns = [
     {
-      title: 'SNo',
-      dataIndex: 'key',
+      title: 'Title',
+      dataIndex: 'title',
     },
     {
-      title: 'Name',
-      dataIndex: 'name',
+      title: 'Category',
+      dataIndex: 'category',
     },
     {
-      title: 'Product',
-      dataIndex: 'product',
+      title: 'Total Views',
+      dataIndex: 'numViews',
     },
     {
-      title: 'Status',
-      dataIndex: 'staus',
+      title: 'Total Likes',
+      dataIndex: 'likes',
+      render: (likes) => <span>{likes.length}</span>,
     },
   ]
-  const data1 = []
-  for (let i = 0; i < 20; i++) {
-    data1.push({
-      key: i,
-      name: `Edward King ${i}`,
-      product: 32,
-      staus: `London, Park Lane no. ${i}`,
-    })
-  }
+
+  useEffect(() => {
+    dispatch(fetchBlogApi())
+  }, [])
 
   return (
     <div>
@@ -40,7 +41,7 @@ const BlogList = () => {
         </Link>
       </div>
       <div className=''>
-        <Table columns={columns} dataSource={data1} />
+        <Table columns={columns} dataSource={data} loading={loading} rowKey='_id' />
       </div>
     </div>
   )
