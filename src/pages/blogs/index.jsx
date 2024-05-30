@@ -1,13 +1,35 @@
-import { Table } from 'antd'
+import { Button, Modal, Space, Table } from 'antd'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchBlogApi } from '../../app/blog'
-import { getCategoriesBlogApi } from '../../app/categoriesBlog'
+import { deleteBlogApi } from '../../services/BlogService'
 
 const BlogList = () => {
+  const { confirm } = Modal
   const dispatch = useDispatch()
   const { loading, data } = useSelector((state) => state.blog.list)
+
+  const onEdit = (data) => {
+    console.log(data)
+  }
+
+  const showDeleteConfirm = (id) => {
+    confirm({
+      title: 'Are you sure?',
+      content: 'If a blog is deleted it cannot be returned',
+      okText: 'Delete',
+      okType: 'danger',
+      cancelText: 'Cancel',
+      async onOk() {
+        await deleteBlogApi(id)
+        dispatch(fetchBlogApi())
+      },
+      onCancel() {
+        console.log('Cancel')
+      },
+    })
+  }
 
   const columns = [
     {
@@ -27,11 +49,26 @@ const BlogList = () => {
       dataIndex: 'likes',
       render: (likes) => <span>{likes.length}</span>,
     },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (props) => {
+        return (
+          <Space size='middle'>
+            <Button type='primary' onClick={() => onEdit(props)}>
+              Edit
+            </Button>
+            <Button type='primary' onClick={() => showDeleteConfirm(props._id)} danger>
+              Delete
+            </Button>
+          </Space>
+        )
+      },
+    },
   ]
 
   useEffect(() => {
     dispatch(fetchBlogApi())
-    dispatch(getCategoriesBlogApi())
   }, [])
 
   return (

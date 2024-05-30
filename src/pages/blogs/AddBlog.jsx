@@ -1,18 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, message, Upload } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import ReactQuill from 'react-quill'
 import { Field, Form, Formik } from 'formik'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import CustomInput from '../../components/CustomInput'
 import { InboxOutlined } from '@ant-design/icons'
 import 'react-quill/dist/quill.snow.css'
 import ErrorModal from '../../components/Modal/ErrorModal'
 import { createBlogApi, updateBlogApi } from '../../services/BlogService'
+import { getCategoriesBlogApi } from '../../app/categoriesBlog'
 
 const { Dragger } = Upload
 
 const AddBlog = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const { showModal } = ErrorModal()
   const data = useSelector((state) => state.blog)
@@ -55,6 +57,10 @@ const AddBlog = () => {
       setSubmitting(false)
     }
   }
+
+  useEffect(() => {
+    dispatch(getCategoriesBlogApi())
+  }, [])
 
   return (
     <React.Fragment>
