@@ -26,3 +26,37 @@ export const deleteCategoryBlog = (id) =>
     url: '/blog-category/' + id,
     method: 'delete',
   })
+
+// BLOGS
+export const getBlogApi = (id = '') =>
+  ApiService.fetchData({
+    url: '/blog/' + id,
+    method: 'get',
+  })
+
+export const createBlogApi = (data) =>
+  ApiService.fetchData({
+    url: '/blog',
+    method: 'post',
+    data,
+  })
+
+export const updateBlogApi = (id, data) =>
+  ApiService.fetchData({
+    url: '/blog/' + id,
+    method: 'put',
+    data,
+  })
+
+export const deleteBlogApi = (id) =>
+  ApiService.fetchData({
+    url: '/blog/' + id,
+    method: 'delete',
+  })
+
+export const uploadBlogImageApi = (id, data) =>
+  ApiService.fetchData({
+    url: '/blog/upload/' + id,
+    method: 'put',
+    data,
+  })
