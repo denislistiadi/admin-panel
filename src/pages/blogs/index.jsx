@@ -1,17 +1,19 @@
 import { Button, Modal, Space, Table } from 'antd'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { fetchBlogApi } from '../../app/blog'
+import { Link, useNavigate } from 'react-router-dom'
+import { fetchBlogApi, setFormBlog } from '../../app/blog'
 import { deleteBlogApi } from '../../services/BlogService'
 
 const BlogList = () => {
   const { confirm } = Modal
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const { loading, data } = useSelector((state) => state.blog.list)
 
   const onEdit = (data) => {
-    console.log(data)
+    dispatch(setFormBlog({ isEdit: true, data: data }))
+    navigate('/admin/add-blog')
   }
 
   const showDeleteConfirm = (id) => {

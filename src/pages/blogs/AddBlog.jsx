@@ -19,7 +19,7 @@ const AddBlog = () => {
   const { showModal } = ErrorModal()
   const data = useSelector((state) => state.blog)
   const categories = useSelector((state) => state.categoriesBlog.list.data)
-  const [description, setDescription] = useState(data.form.desc || '')
+  const [description, setDescription] = useState(data.form.description || '')
 
   const draggerProps = {
     name: 'file',
