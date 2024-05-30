@@ -1,14 +1,16 @@
 import { combineReducers } from '@reduxjs/toolkit'
 import auth from './auth'
-import categoriesProduct from './categoriesProduct'
+import blog from './blog'
 import brand from './brand'
 import categoriesBlog from './categoriesBlog'
+import categoriesProduct from './categoriesProduct'
 
 const rootReducer = () => (state, action) => {
   const combinedReducer = combineReducers({
     auth,
-    categoriesProduct,
     brand,
+    blog,
+    categoriesProduct,
     categoriesBlog,
   })
   return combinedReducer(state, action)

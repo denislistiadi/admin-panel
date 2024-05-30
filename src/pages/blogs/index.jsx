@@ -1,35 +1,77 @@
-import { Table } from 'antd'
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { Button, Modal, Space, Table } from 'antd'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { fetchBlogApi, setFormBlog } from '../../app/blog'
+import { deleteBlogApi } from '../../services/BlogService'
 
 const BlogList = () => {
-  const columns = [
-    {
-      title: 'SNo',
-      dataIndex: 'key',
-    },
-    {
-      title: 'Name',
-      dataIndex: 'name',
-    },
-    {
-      title: 'Product',
-      dataIndex: 'product',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'staus',
-    },
-  ]
-  const data1 = []
-  for (let i = 0; i < 20; i++) {
-    data1.push({
-      key: i,
-      name: `Edward King ${i}`,
-      product: 32,
-      staus: `London, Park Lane no. ${i}`,
+  const { confirm } = Modal
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { loading, data } = useSelector((state) => state.blog.list)
+
+  const onEdit = (data) => {
+    dispatch(setFormBlog({ isEdit: true, data: data }))
+    navigate('/admin/add-blog')
+  }
+
+  const showDeleteConfirm = (id) => {
+    confirm({
+      title: 'Are you sure?',
+      content: 'If a blog is deleted it cannot be returned',
+      okText: 'Delete',
+      okType: 'danger',
+      cancelText: 'Cancel',
+      async onOk() {
+        await deleteBlogApi(id)
+        dispatch(fetchBlogApi())
+      },
+      onCancel() {
+        console.log('Cancel')
+      },
     })
   }
+
+  const columns = [
+    {
+      title: 'Title',
+      dataIndex: 'title',
+    },
+    {
+      title: 'Category',
+      dataIndex: 'category',
+    },
+    {
+      title: 'Total Views',
+      dataIndex: 'numViews',
+    },
+    {
+      title: 'Total Likes',
+      dataIndex: 'likes',
+      render: (likes) => <span>{likes.length}</span>,
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (props) => {
+        return (
+          <Space size='middle'>
+            <Button type='primary' onClick={() => onEdit(props)}>
+              Edit
+            </Button>
+            <Button type='primary' onClick={() => showDeleteConfirm(props._id)} danger>
+              Delete
+            </Button>
+          </Space>
+        )
+      },
+    },
+  ]
+
+  useEffect(() => {
+    dispatch(fetchBlogApi())
+  }, [])
 
   return (
     <div>
@@ -40,7 +82,7 @@ const BlogList = () => {
         </Link>
       </div>
       <div className=''>
-        <Table columns={columns} dataSource={data1} />
+        <Table columns={columns} dataSource={data} loading={loading} rowKey='_id' />
       </div>
     </div>
   )
